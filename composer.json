@@ -1,0 +1,43 @@
+{
+	"name": "baraja-core/cas",
+	"description": "Central authorization service.",
+	"homepage": "https://github.com/baraja-core/cas",
+	"authors": [
+		{
+			"name": "Jan Barášek",
+			"homepage": "https://brj.cz"
+		}
+	],
+	"require": {
+		"php": "^8.0",
+		"baraja-core/lock": "^v1.0",
+		"nette/utils": "^3.2",
+		"doctrine/orm": "^2.9"
+	},
+	"require-dev": {
+		"nette/di": "^3.0",
+		"phpstan/phpstan": "^1.0",
+		"phpstan/extension-installer": "^1.1",
+		"phpstan/phpstan-nette": "^1.0",
+		"phpstan/phpstan-deprecation-rules": "^1.0",
+		"phpstan/phpstan-strict-rules": "^1.0",
+		"spaze/phpstan-disallowed-calls": "^2.0",
+		"roave/security-advisories": "dev-master"
+	},
+	"autoload": {
+		"classmap": [
+			"src/"
+		]
+	},
+	"scripts": {
+		"phpstan": [
+			"vendor/bin/phpstan analyse src -c phpstan.neon --level 9 --no-progress"
+		]
+	},
+	"minimum-stability": "stable",
+	"config": {
+		"allow-plugins": {
+			"phpstan/extension-installer": true
+		}
+	}
+}
