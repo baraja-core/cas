@@ -96,8 +96,13 @@ final class Helpers
 		}
 
 		$hash = @password_hash($password, PASSWORD_DEFAULT); // @ is escalated to exception
-		if (!$hash) {
-			throw new \LogicException('Computed hash is invalid. ' . error_get_last()['message']);
+		if ($hash === '') {
+			$error = error_get_last();
+			throw new \LogicException(
+				sprintf(
+					'Computed hash is invalid "%s".',
+					$error !== null ? $error['message'] : ''),
+			);
 		}
 
 		return $hash;

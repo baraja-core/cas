@@ -30,9 +30,9 @@ class Authenticator
 
 	public function __construct(
 		private EntityManagerInterface $entityManager,
-		private Configuration $configuration,
 		private UserStorage $userStorage,
 		private UserMetaManager $metaManager,
+		private ?Configuration $configuration = null,
 	) {
 		$organisationRepository = $entityManager->getRepository(Organisation::class);
 		assert($organisationRepository instanceof OrganisationRepository);
@@ -133,7 +133,7 @@ class Authenticator
 
 	public function isLoginFirewallBlocked(string $username, ?string $ip = null): bool
 	{
-		if (PHP_SAPI === 'cli') {
+		if (PHP_SAPI === 'cli' || $this->configuration === null) {
 			return false;
 		}
 		$blockCountKey = 'user-login-attempts-block-count';

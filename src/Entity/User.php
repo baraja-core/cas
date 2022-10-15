@@ -298,10 +298,12 @@ class User implements UserIdentityInterface
 	 */
 	public function getEmails(): array
 	{
-		return array_map(
-			static fn(UserEmail $email): string => $email->getEmail(),
-			$this->emails,
-		);
+		$return = [];
+		foreach ($this->emails as $email) {
+			$return[] = $email->getEmail();
+		}
+
+		return $return;
 	}
 
 
@@ -459,9 +461,10 @@ class User implements UserIdentityInterface
 
 	public function setPhone(?string $phone, int $region = 420): void
 	{
-		$this->phone = $phone !== null && $phone !== ''
-			? PhoneNumberFormatter::fix($phone, $region)
-			: null;
+		if (class_exists(PhoneNumberFormatter::class) && $phone !== null && $phone !== '') {
+			$phone = PhoneNumberFormatter::fix($phone, $region);
+		}
+		$this->phone = $phone;
 	}
 
 

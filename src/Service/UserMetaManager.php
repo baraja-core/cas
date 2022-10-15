@@ -77,7 +77,6 @@ final class UserMetaManager
 			$userMetaRepository = $this->entityManager->getRepository(UserMeta::class);
 			assert($userMetaRepository instanceof UserMetaRepository);
 			$meta = self::$cache[$cacheKey] ?? $userMetaRepository->load($user->getId(), $key);
-			assert($meta instanceof UserMeta);
 		} catch (NoResultException | NonUniqueResultException) {
 			if ($value === null) {
 				return $this;

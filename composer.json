@@ -10,11 +10,14 @@
 	],
 	"require": {
 		"php": "^8.0",
-		"baraja-core/lock": "^v1.0",
+		"baraja-core/lock": "^1.0",
+		"baraja-core/structured-api": "^4.0",
+		"baraja-core/network": "^1.0",
 		"nette/utils": "^3.2",
 		"doctrine/orm": "^2.9"
 	},
 	"require-dev": {
+		"baraja-core/dynamic-configuration": "^2.2",
 		"nette/di": "^3.0",
 		"phpstan/phpstan": "^1.0",
 		"phpstan/extension-installer": "^1.1",

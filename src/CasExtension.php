@@ -7,7 +7,6 @@ namespace Baraja\CAS;
 
 use Baraja\CAS\Service\PasswordAuthorizator;
 use Baraja\CAS\Service\UserMetaManager;
-use Baraja\Cms\CmsExtension;
 use Baraja\Doctrine\ORM\DI\OrmAnnotationsExtension;
 use Nette\DI\CompilerExtension;
 
@@ -18,14 +17,19 @@ final class CasExtension extends CompilerExtension
 	 */
 	public static function mustBeDefinedBefore(): array
 	{
-		return [OrmAnnotationsExtension::class, CmsExtension::class];
+		return [
+			'Baraja\Doctrine\ORM\DI\OrmAnnotationsExtension',
+			'Baraja\Cms\CmsExtension',
+		];
 	}
 
 
 	public function beforeCompile(): void
 	{
 		$builder = $this->getContainerBuilder();
-		OrmAnnotationsExtension::addAnnotationPathToManager($builder, 'Baraja\CAS\Entity', __DIR__ . '/Entity');
+		if (class_exists(OrmAnnotationsExtension::class)) {
+			OrmAnnotationsExtension::addAnnotationPathToManager($builder, 'Baraja\CAS\Entity', __DIR__ . '/Entity');
+		}
 
 		$builder->addDefinition($this->prefix('user'))
 			->setFactory(User::class);
