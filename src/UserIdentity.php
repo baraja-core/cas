@@ -21,7 +21,7 @@ class UserIdentity implements UserIdentityInterface
 	) {
 		if ($this->avatarUrl !== null && Validators::isUrl($this->avatarUrl) === false) {
 			throw new \InvalidArgumentException(
-				sprintf('Avatar URL is not valid URL, because "%s" given.', $this->avatarUrl)
+				sprintf('Avatar URL is not valid URL, because "%s" given.', $this->avatarUrl),
 			);
 		}
 	}

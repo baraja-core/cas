@@ -80,7 +80,7 @@ class OrganisationMember
 	}
 
 
-	public function getParent(): ?OrganisationMember
+	public function getParent(): ?self
 	{
 		return $this->parent;
 	}

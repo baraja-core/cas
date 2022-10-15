@@ -108,7 +108,7 @@ class User implements UserIdentityInterface
 
 	/** @var string|resource|null */
 	#[ORM\Column(type: 'binary', nullable: true)]
-	private $otpCode = null;
+	private $otpCode;
 
 
 	public function __construct(string $username, string $password)
@@ -172,11 +172,11 @@ class User implements UserIdentityInterface
 			$firstName !== ''
 			&& preg_match(
 				'/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.\'-]+$/u',
-				$firstName
+				$firstName,
 			) !== 1
 		) {
 			throw new \InvalidArgumentException(
-				sprintf('User first name is not valid, because "%s" given.', $firstName)
+				sprintf('User first name is not valid, because "%s" given.', $firstName),
 			);
 		}
 		$this->firstName = $firstName !== '' ? $firstName : null;
@@ -196,7 +196,7 @@ class User implements UserIdentityInterface
 			$lastName !== ''
 			&& preg_match(
 				'/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.\'-]+$/u',
-				$lastName
+				$lastName,
 			) !== 1
 		) {
 			throw new \InvalidArgumentException(sprintf('User last name is not valid, because "%s" given.', $lastName));
@@ -265,7 +265,7 @@ class User implements UserIdentityInterface
 		}
 		$this->password = $password;
 		throw new \RuntimeException(
-			'The password was passed unsafely. Please catch this exception if it was intended.'
+			'The password was passed unsafely. Please catch this exception if it was intended.',
 		);
 	}
 
@@ -299,8 +299,8 @@ class User implements UserIdentityInterface
 	public function getEmails(): array
 	{
 		return array_map(
-			static fn (UserEmail $email): string => $email->getEmail(),
-			$this->emails
+			static fn(UserEmail $email): string => $email->getEmail(),
+			$this->emails,
 		);
 	}
 

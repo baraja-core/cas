@@ -53,7 +53,7 @@ class User
 		if ($this->isLoggedIn()) {
 			try {
 				return $this->userStorage->getUserById($this->getId());
-			} catch (NoResultException|NonUniqueResultException $e) {
+			} catch (NoResultException | NonUniqueResultException $e) {
 				// User does not exist.
 			}
 		}
@@ -95,7 +95,8 @@ class User
 		?string $username = null,
 		?string $password = null,
 		?string $phone = null,
-	): UserEntity {
+	): UserEntity
+	{
 		return $this->getUserStorage()->getUserRepository()->createUser($email, $username, $password, $phone);
 	}
 

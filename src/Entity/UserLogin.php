@@ -6,8 +6,8 @@ namespace Baraja\CAS\Entity;
 
 
 use Baraja\CAS\Repository\UserLoginRepository;
-use Doctrine\ORM\Mapping as ORM;
 use Baraja\Network\Ip;
+use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: UserLoginRepository::class)]
 #[ORM\Table(name: 'cas__user_login')]

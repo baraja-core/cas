@@ -15,7 +15,7 @@ final class Helpers
 		}
 		if (preg_match('/^[a-z0-9@\-_.]+$/', $username) !== 1) {
 			throw new \InvalidArgumentException(
-				sprintf('Username "%s" is not valid, because it contains forbidden characters.', $username)
+				sprintf('Username "%s" is not valid, because it contains forbidden characters.', $username),
 			);
 		}
 
@@ -27,7 +27,7 @@ final class Helpers
 	{
 		try {
 			$code = random_bytes(10);
-		} catch (\Exception $e) {
+		} catch (\Throwable $e) {
 			throw new \RuntimeException($e->getMessage(), 500, $e);
 		}
 
@@ -37,7 +37,6 @@ final class Helpers
 
 	/**
 	 * @param string $data -> a string of length divisible by five
-	 * @copyright Jakub Vrána, https://php.vrana.cz/
 	 */
 	public static function otpBase32Encode(string $data): string
 	{
@@ -61,7 +60,6 @@ final class Helpers
 	 * @param string $issuer -> service (or project) name
 	 * @param string $user -> username (displayed in Authenticator app)
 	 * @param string $secret -> in binary format
-	 * @copyright Jakub Vrána, https://php.vrana.cz/
 	 */
 	public static function getOtpQrUrl(string $issuer, string $user, string $secret): string
 	{
@@ -79,7 +77,6 @@ final class Helpers
 	 *
 	 * @param string $secret -> in binary format
 	 * @param string $timeSlot -> example: floor(time() / 30)
-	 * @copyright Jakub Vrána, https://php.vrana.cz/
 	 */
 	public static function getOtp(string $secret, string $timeSlot): int
 	{

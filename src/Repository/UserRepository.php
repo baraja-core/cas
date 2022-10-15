@@ -37,8 +37,7 @@ final class UserRepository extends EntityRepository
 	 */
 	public function getUserById(int $id): User
 	{
-		$find = function (int $id): User
-		{
+		$find = function (int $id): User {
 			$entity = $this->createQueryBuilder('user')
 				->where('user.id = :id')
 				->setParameter('id', $id)
@@ -66,7 +65,7 @@ final class UserRepository extends EntityRepository
 				->getSingleResult();
 
 			return true;
-		} catch (NoResultException|NonUniqueResultException) {
+		} catch (NoResultException | NonUniqueResultException) {
 		}
 
 		return false;
@@ -96,7 +95,8 @@ final class UserRepository extends EntityRepository
 		?string $username = null,
 		?string $password = null,
 		?string $phone = null,
-	): User {
+	): User
+	{
 		if ($this->userExist($email)) {
 			throw new \InvalidArgumentException(sprintf('User "%s" already exist.', $email));
 		}

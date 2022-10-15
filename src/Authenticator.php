@@ -48,7 +48,8 @@ class Authenticator
 		string $password,
 		string|bool $remember = '14 days',
 		?Organisation $organisation = null,
-	): UserLoginIdentity {
+	): UserLoginIdentity
+	{
 		if (is_bool($remember)) {
 			$expiration = $remember ? '14 days' : '15 minutes';
 		} else {
@@ -57,7 +58,7 @@ class Authenticator
 		$this->processSecuritySleep();
 		try {
 			$organisation ??= $this->organisationRepository->getDefaultOrganisation();
-		} catch (NoResultException|NonUniqueResultException) {
+		} catch (NoResultException | NonUniqueResultException) {
 			throw new AuthenticationException('Organisation does not exist.', self::Failure);
 		}
 		if ($this->isLoginFirewallBlocked($username) === true) {
@@ -76,12 +77,12 @@ class Authenticator
 
 		try {
 			$user = $this->userStorage->getByUsername($username);
-		} catch (NoResultException|NonUniqueResultException) {
+		} catch (NoResultException | NonUniqueResultException) {
 			throw new AuthenticationException('Username or password is incorrect.', self::InvalidCredential);
 		}
 		try {
 			$member = $this->userStorage->getMemberByUser($user, $organisation);
-		} catch (NoResultException|NonUniqueResultException) {
+		} catch (NoResultException | NonUniqueResultException) {
 			throw new AuthenticationException(
 				sprintf('User profile is not associated with organisation "%s".', $organisation->getName()),
 				self::NotApproved,
