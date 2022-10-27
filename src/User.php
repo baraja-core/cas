@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Baraja\CAS;
 
 
-use Baraja\CAS\Entity\Organisation;
 use Baraja\CAS\Entity\User as UserEntity;
 use Baraja\CAS\Entity\UserLoginIdentity;
 use Baraja\CAS\Service\UserMetaManager;
@@ -13,8 +12,8 @@ use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 
 /**
- * Základní aplikační rozhraní pro obsluhu uživatelských účtů.
- * Ověření přihlášení, získání identity, přihlášení, odhlášení a manipulace s účty.
+ * Basic application interface for user accounts.
+ * Login verification, identity acquisition, login, logout and account manipulation.
  */
 class User
 {
