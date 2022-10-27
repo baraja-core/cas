@@ -39,11 +39,10 @@ class Organisation
 	private ?string $companyVatNumber = null;
 
 
-	public function __construct(string $name, string $slug, OrganisationMember $supportPerson)
+	public function __construct(string $name, string $slug)
 	{
 		$this->setName($name);
 		$this->setSlug($slug);
-		$this->setSupportPerson($supportPerson);
 	}
 
 

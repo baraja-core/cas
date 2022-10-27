@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Baraja\CAS\Entity;
 
 
-use Baraja\CAS\Helpers;
+use Baraja\CAS\CasHelper;
 use Baraja\CAS\Repository\UserRepository;
 use Baraja\CAS\UserIdentityInterface;
 use Baraja\Network\Ip;
@@ -113,8 +113,8 @@ class User implements UserIdentityInterface
 
 	public function __construct(string $username, string $password)
 	{
-		$this->username = Helpers::formatUsername($username);
-		$this->password = Helpers::hashPassword($password);
+		$this->username = CasHelper::formatUsername($username);
+		$this->password = CasHelper::hashPassword($password);
 		$this->registerIp = Ip::get();
 		$this->registerDate = new \DateTimeImmutable('now');
 		$this->createDate = new \DateTimeImmutable('now');
@@ -207,13 +207,13 @@ class User implements UserIdentityInterface
 
 	public function getUsername(): string
 	{
-		return Helpers::formatUsername($this->username);
+		return CasHelper::formatUsername($this->username);
 	}
 
 
 	public function setUsername(string $username): void
 	{
-		$this->username = Helpers::formatUsername($username);
+		$this->username = CasHelper::formatUsername($username);
 	}
 
 
@@ -248,7 +248,7 @@ class User implements UserIdentityInterface
 			throw new \InvalidArgumentException('Given password is not safe.');
 		}
 
-		$this->password = Helpers::hashPassword($password);
+		$this->password = CasHelper::hashPassword($password);
 	}
 
 

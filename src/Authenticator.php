@@ -65,7 +65,7 @@ class Authenticator
 			throw new AuthenticationException('Too many failed login attempts.', self::NotApproved);
 		}
 		try {
-			$username = Helpers::formatUsername($username);
+			$username = CasHelper::formatUsername($username);
 		} catch (\InvalidArgumentException $e) {
 			throw new AuthenticationException($e->getMessage(), self::InvalidCredential);
 		}

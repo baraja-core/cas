@@ -12,6 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Table(name: 'cas__role')]
 class Role
 {
+	public const RoleAdmin = 'ADMIN';
+
 	#[ORM\Id]
 	#[ORM\Column(type: 'integer', unique: true, options: ['unsigned' => true])]
 	#[ORM\GeneratedValue]

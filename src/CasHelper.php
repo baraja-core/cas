@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Baraja\CAS;
 
 
-final class Helpers
+final class CasHelper
 {
 	public static function formatUsername(string $username): string
 	{
@@ -114,5 +114,43 @@ final class Helpers
 		$checker = static fn(int $timeSlot): bool => self::getOtp($otpCode, (string) $timeSlot) === $code;
 
 		return $checker($slot = (int) floor(time() / 30)) || $checker($slot - 1) || $checker($slot + 1);
+	}
+
+
+	/**
+	 * Advance function for parsing real user full name.
+	 * Accept name in format "Doc. Ing. Jan Barášek, PhD."
+	 *
+	 * @return array{firstName: string|null, lastName: string|null, degreeBefore: string|null, degreeAfter: string|null}
+	 */
+	public static function nameParser(string $name): array
+	{
+		static $degreePattern = '((?:(?:\s*(?:[A-Za-z]{2,8})\.\s*)+))?';
+		$normalized = str_replace(',', '', trim(str_replace('/\s+/', ' ', $name)));
+		$degreeBefore = '';
+		$degreeAfter = '';
+
+		if (preg_match('/^' . $degreePattern . '\s*([^.]+?)?\s*' . $degreePattern . '$/', $normalized, $degreeParser) === 1) {
+			$normalized = trim($degreeParser[2] ?? '');
+			$degreeBefore = trim($degreeParser[1] ?? '');
+			$degreeAfter = trim($degreeParser[3] ?? '');
+		}
+
+		$parts = explode(' ', $normalized, 2);
+		$firstName = self::firstUpper($parts[0] ?? '');
+		$lastName = self::firstUpper($parts[1] ?? '');
+
+		return [
+			'firstName' => $firstName !== '' ? $firstName : null,
+			'lastName' => $lastName !== '' ? $lastName : null,
+			'degreeBefore' => $degreeBefore !== '' ? $degreeBefore : null,
+			'degreeAfter' => $degreeAfter !== '' ? $degreeAfter : null,
+		];
+	}
+
+
+	private static function firstUpper(string $s): string
+	{
+		return mb_strtoupper(mb_substr($s, 0, 1, 'UTF-8'), 'UTF-8') . mb_substr($s, 1, null, 'UTF-8');
 	}
 }

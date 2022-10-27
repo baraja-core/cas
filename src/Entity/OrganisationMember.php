@@ -104,6 +104,12 @@ class OrganisationMember
 	}
 
 
+	public function addRole(OrganisationMemberRole $role): void
+	{
+		$this->roles[] = $role;
+	}
+
+
 	/**
 	 * @return string[]
 	 */
@@ -120,11 +126,11 @@ class OrganisationMember
 
 	public function isAdmin(): bool
 	{
-		return $this->containRole('admin');
+		return $this->hasRole('admin');
 	}
 
 
-	public function containRole(string $role): bool
+	public function hasRole(string $role): bool
 	{
 		foreach ($this->getRoleCodes() as $roleItem) {
 			if ($roleItem === $role) {

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Baraja\CAS\Entity;
 
 
-use Baraja\CAS\Helpers;
+use Baraja\CAS\CasHelper;
 use Baraja\CAS\Repository\UserPasswordLogRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -42,7 +42,7 @@ class UserPasswordLog
 		}
 
 		$this->user = $user;
-		$this->password = Helpers::hashPassword($password);
+		$this->password = CasHelper::hashPassword($password);
 		$this->insertedDate = new \DateTimeImmutable;
 	}
 

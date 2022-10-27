@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Baraja\CAS;
 
 
+use Baraja\CAS\Entity\Organisation;
 use Baraja\CAS\Entity\User as UserEntity;
 use Baraja\CAS\Entity\UserLoginIdentity;
 use Baraja\CAS\Service\UserMetaManager;
@@ -81,12 +82,7 @@ class User
 
 	public function isAdmin(): bool
 	{
-		$identity = $this->getIdentity();
-		if ($identity !== null) {
-			return in_array('admin', $identity->getRoles(), true);
-		}
-
-		return false;
+		return in_array('admin', $this->getIdentity()?->getRoles() ?? [], true);
 	}
 
 
@@ -95,8 +91,7 @@ class User
 		?string $username = null,
 		?string $password = null,
 		?string $phone = null,
-	): UserEntity
-	{
+	): UserEntity {
 		return $this->getUserStorage()->getUserRepository()->createUser($email, $username, $password, $phone);
 	}
 

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Baraja\CAS;
 
 
+use Baraja\CAS\Service\MemberRoleManager;
 use Baraja\CAS\Service\PasswordAuthorizator;
 use Baraja\CAS\Service\UserMetaManager;
 use Baraja\Doctrine\ORM\DI\OrmAnnotationsExtension;
@@ -45,5 +46,8 @@ final class CasExtension extends CompilerExtension
 
 		$builder->addDefinition($this->prefix('passwordAuthorizator'))
 			->setFactory(PasswordAuthorizator::class);
+
+		$builder->addDefinition($this->prefix('memberRoleManager'))
+			->setFactory(MemberRoleManager::class);
 	}
 }

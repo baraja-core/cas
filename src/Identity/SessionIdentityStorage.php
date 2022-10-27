@@ -16,7 +16,11 @@ final class SessionIdentityStorage implements IdentityStorageInterface
 	{
 		$identity = $_SESSION[self::SessionKey] ?? null;
 
-		return $identity instanceof UserIdentity ? $identity : null;
+		try {
+			return $identity instanceof UserIdentity && $identity->getId() > 0 ? $identity : null;
+		} catch (\Throwable) {
+			return null;
+		}
 	}
 
 
