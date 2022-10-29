@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace Baraja\CAS;
 
 
+use Baraja\CAS\Bridge\NetteUserStorageBridge;
 use Baraja\CAS\Service\MemberRoleManager;
 use Baraja\CAS\Service\PasswordAuthorizator;
 use Baraja\CAS\Service\UserMetaManager;
 use Baraja\Doctrine\ORM\DI\OrmAnnotationsExtension;
 use Nette\DI\CompilerExtension;
+use Nette\Security\UserStorage as NetteUserStorage;
 
 final class CasExtension extends CompilerExtension
 {
@@ -37,6 +39,12 @@ final class CasExtension extends CompilerExtension
 
 		$builder->addDefinition($this->prefix('userStorage'))
 			->setFactory(UserStorage::class);
+
+		if (interface_exists(NetteUserStorage::class)) {
+			$builder->removeDefinition('security.userStorage');
+			$builder->addDefinition($this->prefix('netteUserStorageBridge'))
+				->setFactory(NetteUserStorageBridge::class);
+		}
 
 		$builder->addDefinition($this->prefix('authenticator'))
 			->setFactory(Authenticator::class);

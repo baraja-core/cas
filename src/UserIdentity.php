@@ -83,4 +83,20 @@ class UserIdentity implements UserIdentityInterface
 	{
 		return null;
 	}
+
+
+	/**
+	 * @return array<string, mixed>
+	 */
+	public function toArray(): array
+	{
+		$rel = new \ReflectionClass($this);
+		$return = [];
+		foreach ($rel->getProperties() as $property) {
+			$property->setAccessible(true);
+			$return[$property->getName()] = $property->getValue($this);
+		}
+
+		return $return;
+	}
 }

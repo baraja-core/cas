@@ -19,6 +19,7 @@
 	"require-dev": {
 		"baraja-core/dynamic-configuration": "^2.2",
 		"nette/di": "^3.0",
+		"nette/security": "^3.0",
 		"phpstan/phpstan": "^1.0",
 		"phpstan/extension-installer": "^1.1",
 		"phpstan/phpstan-nette": "^1.0",
