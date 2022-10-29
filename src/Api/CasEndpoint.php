@@ -12,14 +12,14 @@ use Baraja\StructuredApi\BaseEndpoint;
 final class CasEndpoint extends BaseEndpoint
 {
 	public function __construct(
-		private User $user,
+		public User $userService,
 	) {
 	}
 
 
 	public function postLogin(string $username, string $password, bool $permanent = false): LoginResponse
 	{
-		$identity = $this->user->getAuthenticator()->authentication($username, $password, $permanent);
+		$identity = $this->userService->getAuthenticator()->authentication($username, $password, $permanent);
 
 		return new LoginResponse(
 			identityId: $identity->getIdentityId(),
@@ -30,7 +30,7 @@ final class CasEndpoint extends BaseEndpoint
 
 	public function postLogout(?string $identityId = null): void
 	{
-		$this->user->logout($identityId);
+		$this->userService->logout($identityId);
 		$this->sendOk();
 	}
 }

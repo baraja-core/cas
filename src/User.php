@@ -79,9 +79,15 @@ class User
 	}
 
 
+	public function isInRole(string $role): bool
+	{
+		return in_array($role, $this->getIdentity()?->getRoles() ?? [], true);
+	}
+
+
 	public function isAdmin(): bool
 	{
-		return in_array('admin', $this->getIdentity()?->getRoles() ?? [], true);
+		return $this->isInRole('admin');
 	}
 
 
