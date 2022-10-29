@@ -14,6 +14,8 @@ class UserIdentity implements UserIdentityInterface
 	 */
 	public function __construct(
 		private int $id,
+		private int $memberId,
+		private int $userId,
 		private string $identityId,
 		private int $organisationId,
 		private array $roles = [],
@@ -31,6 +33,18 @@ class UserIdentity implements UserIdentityInterface
 	public function getId(): int
 	{
 		return $this->id;
+	}
+
+
+	public function getMemberId(): int
+	{
+		return $this->memberId;
+	}
+
+
+	public function getUserId(): int
+	{
+		return $this->userId;
 	}
 
 

@@ -123,6 +123,8 @@ class UserStorage
 
 		$identity = new UserIdentity(
 			id: $loginIdentity->getId(),
+			memberId: $loginIdentity->getMember()->getId(),
+			userId: $loginIdentity->getMember()->getUser()->getId(),
 			identityId: $loginIdentity->getIdentityId(),
 			organisationId: $member->getOrganisation()->getId(),
 			roles: $member->getRoleCodes(),
