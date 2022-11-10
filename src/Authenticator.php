@@ -48,8 +48,7 @@ class Authenticator
 		string $password,
 		string|bool $remember = '14 days',
 		?Organisation $organisation = null,
-	): UserLoginIdentity
-	{
+	): UserLoginIdentity {
 		if (is_bool($remember)) {
 			$expiration = $remember ? '14 days' : '15 minutes';
 		} else {
