@@ -20,6 +20,9 @@ class Organisation
 	#[ORM\Column(type: 'boolean')]
 	private bool $default = false;
 
+	#[ORM\Column(type: 'boolean')]
+	private bool $adminAccess = false;
+
 	#[ORM\Column(type: 'string', length: 128, unique: true)]
 	private string $name;
 
@@ -61,6 +64,18 @@ class Organisation
 	public function setDefault(bool $default): void
 	{
 		$this->default = $default;
+	}
+
+
+	public function isAdminAccess(): bool
+	{
+		return $this->adminAccess;
+	}
+
+
+	public function setAdminAccess(bool $adminAccess): void
+	{
+		$this->adminAccess = $adminAccess;
 	}
 
 
