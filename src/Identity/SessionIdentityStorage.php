@@ -12,6 +12,14 @@ final class SessionIdentityStorage implements IdentityStorageInterface
 	private const SessionKey = '_BRJ-cas-identity';
 
 
+	public function __construct()
+	{
+		if (session_status() === PHP_SESSION_NONE) {
+			session_start();
+		}
+	}
+
+
 	public function getIdentity(): ?UserIdentity
 	{
 		$identity = $_SESSION[self::SessionKey] ?? null;
