@@ -7,6 +7,7 @@ namespace Baraja\CAS\Entity;
 
 use Baraja\CAS\Repository\OrganisationRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Nette\Utils\Strings;
 
 #[ORM\Entity(repositoryClass: OrganisationRepository::class)]
 #[ORM\Table(name: 'cas__organisation')]
@@ -99,7 +100,7 @@ class Organisation
 
 	public function setSlug(string $slug): void
 	{
-		$this->slug = $slug;
+		$this->slug = Strings::webalize($slug);
 	}
 
 
