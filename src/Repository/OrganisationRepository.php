@@ -43,4 +43,18 @@ final class OrganisationRepository extends EntityRepository
 
 		return $organisation;
 	}
+
+
+	/**
+	 * @return Organisation[]
+	 */
+	public function getAll(): array
+	{
+		/** @var array<int, Organisation> $organisations */
+		$organisations = $this->createQueryBuilder('o')
+			->getQuery()
+			->getResult();
+
+		return $organisations;
+	}
 }

@@ -53,7 +53,7 @@ class User
 		if ($this->isLoggedIn()) {
 			try {
 				return $this->userStorage->getUserById($this->getId());
-			} catch (NoResultException | NonUniqueResultException $e) {
+			} catch (NoResultException | NonUniqueResultException) {
 				// User does not exist.
 			}
 		}
