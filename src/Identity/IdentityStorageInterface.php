@@ -14,4 +14,8 @@ interface IdentityStorageInterface
 	public function saveIdentity(UserIdentity $identity, ?\DateTimeInterface $expiration = null): void;
 
 	public function removeIdentity(): void;
+
+	public function saveOAuthStatus(bool $ok): void;
+
+	public function getOAuthStatus(): bool;
 }

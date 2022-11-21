@@ -175,6 +175,18 @@ class UserStorage
 	}
 
 
+	public function saveOAuthStatus(bool $ok): void
+	{
+		$this->identityStorage->saveOAuthStatus($ok);
+	}
+
+
+	public function getOAuthStatus(): bool
+	{
+		return $this->identityStorage->getOAuthStatus();
+	}
+
+
 	public function getUserRepository(): UserRepository
 	{
 		return $this->userRepository;

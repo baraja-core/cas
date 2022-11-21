@@ -9,7 +9,9 @@ use Baraja\CAS\UserIdentity;
 
 final class SessionIdentityStorage implements IdentityStorageInterface
 {
-	private const SessionKey = '_BRJ-cas-identity';
+	private const
+		SessionKey = '_BRJ-cas-identity',
+		SessionOAuthKey = '_BRJ-cas-identity-oauth';
 
 
 	public function __construct()
@@ -36,7 +38,7 @@ final class SessionIdentityStorage implements IdentityStorageInterface
 	{
 		if (isset($_SESSION) && session_status() === PHP_SESSION_ACTIVE) {
 			$_SESSION['__BRJ_CMS'] = [];
-			unset($_SESSION[self::SessionKey]);
+			unset($_SESSION[self::SessionKey], $_SESSION[self::SessionOAuthKey]);
 			session_destroy();
 		}
 	}
@@ -45,5 +47,17 @@ final class SessionIdentityStorage implements IdentityStorageInterface
 	public function saveIdentity(UserIdentity $identity, ?\DateTimeInterface $expiration = null): void
 	{
 		$_SESSION[self::SessionKey] = $identity;
+	}
+
+
+	public function saveOAuthStatus(bool $ok): void
+	{
+		$_SESSION[self::SessionOAuthKey] = $ok;
+	}
+
+
+	public function getOAuthStatus(): bool
+	{
+		return (bool) ($_SESSION[self::SessionOAuthKey] ?? false);
 	}
 }

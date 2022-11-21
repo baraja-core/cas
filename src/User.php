@@ -68,6 +68,30 @@ class User
 	}
 
 
+	public function isOAuthOk(?string $identityId = null): bool
+	{
+		$user = $this->getIdentityEntity();
+
+		return $user === null || $user->getOtpCode() === null || $this->getUserStorage()->getOAuthStatus();
+	}
+
+
+	public function checkOAuthStatus(string $code, ?string $identityId = null): bool
+	{
+		$user = $this->getIdentityEntity();
+		if ($user === null) {
+			return true;
+		}
+
+		$ok = CasHelper::checkAuthenticatorOtpCodeManually($user->getOtpCode(), (int) $code);
+		if ($ok === true) {
+			$this->getUserStorage()->saveOAuthStatus(true);
+		}
+
+		return $ok;
+	}
+
+
 	public function isOnline(int $userId): bool
 	{
 		$lastActivity = $this->metaManager->get($userId, 'last-activity');
