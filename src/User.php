@@ -79,7 +79,7 @@ class User
 	public function checkOAuthStatus(string $code, ?string $identityId = null): bool
 	{
 		$user = $this->getIdentityEntity();
-		if ($user === null) {
+		if ($user === null || $user->getOtpCode() === null) {
 			return true;
 		}
 
