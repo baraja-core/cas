@@ -31,9 +31,12 @@ class User
 	}
 
 
+	/**
+	 * Return member ID.
+	 */
 	public function getId(): int
 	{
-		$id = $this->userStorage->getIdentity()?->getId();
+		$id = $this->userStorage->getIdentity()?->getMemberId();
 		if ($id === null) {
 			throw new \LogicException('User is not logged in.');
 		}
@@ -52,7 +55,7 @@ class User
 	{
 		if ($this->isLoggedIn()) {
 			try {
-				return $this->userStorage->getUserById($this->getId());
+				return $this->userStorage->getMemberByUser($this->getId())->getUser();
 			} catch (NoResultException | NonUniqueResultException) {
 				// User does not exist.
 			}
