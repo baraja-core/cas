@@ -13,7 +13,7 @@
 		"baraja-core/lock": "^1.0",
 		"baraja-core/network": "^1.0",
 		"baraja-core/url": "^1.1",
-		"nette/utils": "^3.2",
+		"nette/utils": "^3.2 || ^4.0",
 		"doctrine/orm": "^2.9"
 	},
 	"require-dev": {
